@@ -2,6 +2,8 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router";
 import Container from "react-bootstrap/Container";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
@@ -14,6 +16,7 @@ const ActorPage = () => {
   const { data, error, isError, isLoading } = useQuery(["person", id], () =>
     getActor(id)
   );
+  const history = useHistory();
 
   return (
     <Container>
@@ -45,8 +48,8 @@ const ActorPage = () => {
               </Card>
             </Col>
           </Row>
-          <h1 className="text-light pt-5"> Has also played in: </h1>
-          <Row className="pt-4">
+          <h1 className="text-light pt-5 pb-4"> Has also played in: </h1>
+          <Row className="g-4">
             {data.results.credits.cast.map((movie, i) => (
               <Col
                 key={i}
@@ -54,17 +57,30 @@ const ActorPage = () => {
                 md={4}
                 lg={3}
                 xl={3}
-                className="pt-4 m-auto Tid"
+                className="pt-4 m-auto Tide"
               >
-                <Card text="light" bg="info" className="overlay Tid">
+                <Card text="light" bg="info" className="overlay Tide">
                   <Card.Body>
                     {(movie.poster_path && (
                       <Card.Img
+                        variant="top"
                         src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                         alt=" image"
                       />
                     )) || <Card.Img src={``} alt=" image" />}
                     <Card.Title key={i}>{movie.title}</Card.Title>
+
+                 
+
+                    <Button
+                      className="space"
+                      variant="primary"
+                      onClick={() => {
+                        history.push(`/movie/${movie.id}`);
+                      }}
+                    >
+                      Details
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>

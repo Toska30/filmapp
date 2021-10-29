@@ -34,11 +34,11 @@ export const getPopularMovies = async () => {
 };
 
 //endpoint about genre
-export const getGenre = async (id, page = null) => {
+export const getGenre = async (id, page) => {
   return get(
-    `/discover/movie?api_key=${apiKey}&sort_by=popularity.asc&page=${page}&with_genres=${id}`
+    `/discover/movie?api_key=${apiKey}&sort_by=popularity.desc&page=${page}&with_genres=${id}`
   );
-};
+}; //changes with descending order.
 
 //endpoint about actors in a movie
 export const getActors = async (id) => {

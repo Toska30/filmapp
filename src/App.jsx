@@ -10,6 +10,8 @@ import MovieActorsPage from "./pages/MovieActorsPage";
 import ActorPage from "./pages/ActorPage";
 import GenresMoviesPage from "./pages/GenresMoviesPage";
 import GenrePage from "./pages/GenrePage";
+import PageNotFound from './pages/PageNotFound';
+
 
 function App() {
   return (
@@ -30,6 +32,9 @@ function App() {
             <PopularMoviesPage />
           </Route>
 
+         
+
+          <Route exact path="/profile" component={GenrePage} />
           <Route exact path="/now-playing-films">
             <LatestMoviesPage />
           </Route>
@@ -38,7 +43,7 @@ function App() {
             <GenresMoviesPage />
           </Route>
 
-          <Route exact path="/genres/:id">
+          <Route exact path="/genres/:id/:IDpage">
             <GenrePage />
           </Route>
 
@@ -53,6 +58,9 @@ function App() {
           <Route path="/movie/:id">
             <MoviePage />
           </Route>
+          <Route>
+                  <PageNotFound />
+                </Route>
         </Switch>
       </div>
     </>

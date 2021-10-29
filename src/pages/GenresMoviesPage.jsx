@@ -44,7 +44,7 @@ const GenresMoviesPage = () => {
                     <Button
                       variant="primary"
                       onClick={() => {
-                        history.push(`/genres/${genre.id}`);
+                        history.push(`/genres/${genre.id}/1`);
                       }}
                     >
                       Movies

@@ -9,18 +9,19 @@ import { useQuery } from "react-query";
 import { getGenre } from "../services/TMDBApi";
 import "../App.scss";
 
+
 const GenrePage = () => {
 
 	//getting id from use params
-	const { id } = useParams();
+	const { id,IDpage } = useParams();
 	const history = useHistory();
 	const [page, setPage] = useState(1);
     // getting data from use query
 	const { data, error, isError, isLoading, isPreviousData } = useQuery(
-		["genre", id, page],
-		() => getGenre(id, page),
+		["genre", id, IDpage],
+		() => getGenre(id, IDpage),
 		{
-			keepData: true,
+			keepPreviousData: true,
 		}
 	);
 
@@ -65,22 +66,24 @@ const GenrePage = () => {
 					</>
 				)}
 			</Row>
-			<div className="pagination d-flex justify-content-between align-items-center mt-4">
+      <div className="pagination d-flex justify-content-between align-items-center mt-4">
 				<Button
-					onClick={() =>
-						setPage((currentPage) => Math.max(currentPage - 1, 1))
-					}
+					onClick={() => {
+						setPage((currentPage) => Math.max(currentPage - 1, 1));
+						history.push(`/genres/${id}/${page - 1}`);
+					}}
 					disabled={page === 1}
 				>
 					Prev
 				</Button>
 
-				<span className="text-light"> {page}</span>
+				<span className="text-light">Current Page: {page}</span>
 
 				<Button
 					onClick={() => {
 						if (!isPreviousData && data.results.page) {
 							setPage((currentPage) => currentPage + 1);
+							history.push(`/genres/${id}/${page + 1}`);
 						}
 					}}
 					disabled={isPreviousData || !data?.results.page}
@@ -93,3 +96,4 @@ const GenrePage = () => {
 };
 
 export default GenrePage;
+
